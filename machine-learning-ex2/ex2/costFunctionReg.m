@@ -17,11 +17,23 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+m = size(X,1);
 
+z = X * theta;
 
+hypothesis = sigmoid(z);
 
+temp = theta;
+temp(1) = 0; % should not regularize theta1
 
+reg = lambda / (2 * m) * sum(temp .^ 2);
 
+part1 = -y .* log(hypothesis);
+part2 = (1 - y) .* log(1 - hypothesis);
+
+J = sum(part1 - part2) / m + reg;
+
+grad = sum((hypothesis - y) .* X) / m + lambda / m * temp'; % temp' 表示求(令第1项为0的)theta的转置
 % =============================================================
 
 end

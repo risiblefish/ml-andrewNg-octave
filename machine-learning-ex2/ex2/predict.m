@@ -16,7 +16,11 @@ p = zeros(m, 1);
 %
 
 
+z = X * theta;
 
+hypothesis = sigmoid(z);
+
+p = hypothesis >= 0.5
 
 
 
